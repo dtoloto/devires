@@ -21,6 +21,14 @@ class CreateTypeService {
   ) {}
 
   public async execute({ name, description }: IRequest): Promise<IResponse> {
+    if (!name) {
+      throw new AppError('Type name is required');
+    }
+
+    if (!description) {
+      throw new AppError('Type description is required');
+    }
+
     const type = await this.typesRepository.create({
       name,
       description,
