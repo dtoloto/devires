@@ -8,6 +8,10 @@ import Type from '../../infra/typeorm/entities/Type';
 class TypesRespository implements ITypeRepository {
   public types: Type[] = [];
 
+  public async findAll(): Promise<Type[]> {
+    return this.types;
+  }
+
   public async findById(id: string): Promise<Type | undefined> {
     const findType = this.types.find(type => type.id === id);
     return findType;
