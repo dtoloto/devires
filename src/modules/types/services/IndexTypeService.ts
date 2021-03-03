@@ -1,7 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 import Type from '../infra/typeorm/entities/Type';
 
-import ITypesRepository from '../repositories/ITypeRepository';
+import ITypeRepository from '../repositories/ITypeRepository';
 
 interface IResponse {
   types: Type[];
@@ -10,12 +10,12 @@ interface IResponse {
 @injectable()
 class IndexTypeService {
   constructor(
-    @inject('TypesRepository')
-    private typesRepository: ITypesRepository,
+    @inject('TypeRepository')
+    private typeRepository: ITypeRepository,
   ) {}
 
   public async execute(): Promise<IResponse> {
-    const types = await this.typesRepository.findAll();
+    const types = await this.typeRepository.findAll();
 
     return { types };
   }

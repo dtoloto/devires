@@ -2,7 +2,7 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import Type from '../infra/typeorm/entities/Type';
 
-import ITypesRepository from '../repositories/ITypeRepository';
+import ITypeRepository from '../repositories/ITypeRepository';
 
 interface IRequest {
   name: string;
@@ -16,8 +16,8 @@ interface IResponse {
 @injectable()
 class CreateTypeService {
   constructor(
-    @inject('TypesRepository')
-    private typesRepository: ITypesRepository,
+    @inject('TypeRepository')
+    private typeRepository: ITypeRepository,
   ) {}
 
   public async execute({ name, description }: IRequest): Promise<IResponse> {
@@ -29,7 +29,7 @@ class CreateTypeService {
       throw new AppError('Type description is required');
     }
 
-    const type = await this.typesRepository.create({
+    const type = await this.typeRepository.create({
       name,
       description,
     });
