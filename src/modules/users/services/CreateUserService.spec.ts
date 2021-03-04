@@ -38,7 +38,6 @@ describe('CreateUser', () => {
 
     const { user } = await createUserService.execute({
       currentUserId: root.id,
-      currentUserTypeId: rootType.id,
       name: 'John Doe',
       email: 'johndoe@email.com',
       password: '123456789',
@@ -70,7 +69,6 @@ describe('CreateUser', () => {
 
     const { user } = await createUserService.execute({
       currentUserId: admin.id,
-      currentUserTypeId: adminType.id,
       name: 'John Three',
       email: 'johnthree@email.com',
       password: '123456789',
@@ -103,7 +101,6 @@ describe('CreateUser', () => {
     await expect(
       createUserService.execute({
         currentUserId: general.id,
-        currentUserTypeId: generalType.id,
         name: 'John Three',
         email: 'johnthree@email.com',
         password: '123456789',
@@ -122,7 +119,6 @@ describe('CreateUser', () => {
     await expect(
       createUserService.execute({
         currentUserId: 'invalid id',
-        currentUserTypeId: 'invalid id',
         name: 'John Three',
         email: 'johnthree@email.com',
         password: '123456789',
@@ -149,7 +145,6 @@ describe('CreateUser', () => {
     await expect(
       createUserService.execute({
         currentUserId: root.id,
-        currentUserTypeId: rootType.id,
         name: 'John Three',
         email: 'johnthree@email.com',
         password: '123456789',

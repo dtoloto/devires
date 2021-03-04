@@ -7,7 +7,6 @@ import IUserRepository from '../repositories/IUserRepository';
 
 interface IRequest {
   currentUserId: string;
-  currentUserTypeId: string;
   name: string;
   password: string;
   type_id: string;
@@ -31,7 +30,6 @@ class CreateUserService {
 
   public async execute({
     currentUserId,
-    currentUserTypeId,
     name,
     password,
     type_id,
@@ -45,7 +43,7 @@ class CreateUserService {
     }
 
     const currentUserType = await this.typeRepository.findById(
-      currentUserTypeId,
+      currentUser.type_id,
     );
 
     if (
