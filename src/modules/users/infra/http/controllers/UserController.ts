@@ -6,6 +6,7 @@ import CreateUserService from '@modules/users/services/CreateUserService';
 import UpdateUserService from '@modules/users/services/UpdateUserService';
 import DeleteUserService from '@modules/users/services/DeleteUserService';
 import IndexUserService from '@modules/users/services/IndexUserService';
+import ShowUserService from '@modules/users/services/ShowUserService';
 
 export default class UserController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -63,6 +64,16 @@ export default class UserController {
     const { id } = req.user;
 
     const users = await indexUser.execute({ id });
+
+    return res.json({ users: classToClass(users) });
+  }
+
+  public async show(req: Request, res: Response): Promise<Response> {
+    const showUser = container.resolve(ShowUserService);
+
+    const { id } = req.user;
+
+    const users = await showUser.execute({ id });
 
     return res.json({ users: classToClass(users) });
   }

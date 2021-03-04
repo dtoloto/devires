@@ -40,5 +40,6 @@ userRouter.put(
 userRouter.delete('/:id', userController.delete);
 
 userRouter.get('/', userController.index);
+userRouter.get('/profile', userController.show);
 
 export default userRouter;
