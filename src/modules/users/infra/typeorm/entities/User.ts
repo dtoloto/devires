@@ -24,10 +24,13 @@ class User {
   @Exclude()
   password: string;
 
-  @OneToOne(type => Type)
-  @JoinColumn()
   @Column({ nullable: false })
-  type_id: Type;
+  type_id: string;
+
+  @OneToOne(type => Type)
+  @JoinColumn({ name: 'type_id' })
+  @Column({ nullable: false })
+  type: Type;
 
   @Column({ nullable: false, unique: true })
   email: string;
