@@ -73,8 +73,8 @@ export default class UserController {
 
     const { id } = req.user;
 
-    const users = await showUser.execute({ id });
+    const user = await showUser.execute({ id });
 
-    return res.json({ users: classToClass(users) });
+    return res.json({ user: classToClass(user) });
   }
 }
