@@ -7,7 +7,6 @@ import IUserRepository from '../repositories/IUserRepository';
 
 interface IRequest {
   currentUserId: string;
-  currentUserTypeId: string;
   name: string;
   id: string;
   password: string;
@@ -28,7 +27,6 @@ class UpdateUserService {
 
   public async execute({
     currentUserId,
-    currentUserTypeId,
     id,
     name,
     password,
@@ -43,7 +41,7 @@ class UpdateUserService {
     }
 
     const currentUserType = await this.typeRepository.findById(
-      currentUserTypeId,
+      currentUser.type_id,
     );
 
     const user = await this.userRepository.findById(id);
@@ -75,7 +73,7 @@ class UpdateUserService {
       (currentUserType && currentUserType.name === 'root') ||
       (currentUserType && currentUserType.name === 'admin')
     ) {
-      user.type_id = typeExists;
+      user.type_id = typeExists.id;
     }
 
     return this.userRepository.save(user);

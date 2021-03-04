@@ -46,7 +46,6 @@ describe('UpdateUser', () => {
 
     const updatedUser = await updateUserService.execute({
       currentUserId: root.id,
-      currentUserTypeId: rootType.id,
       id: user.id,
       name: 'John Doe Doe',
       email: 'johndoedoe@email.com',
@@ -59,7 +58,7 @@ describe('UpdateUser', () => {
     expect(updatedUser?.email).toBe('johndoedoe@email.com');
     expect(updatedUser?.password).toBe('9987654321');
     expect(updatedUser?.status).toBe(false);
-    expect(updatedUser?.type_id.id).toBe(rootType.id);
+    expect(updatedUser?.type_id).toBe(rootType.id);
   });
 
   it('should be able to update an user if current user is admin', async () => {
@@ -91,7 +90,6 @@ describe('UpdateUser', () => {
 
     const updatedUser = await updateUserService.execute({
       currentUserId: admin.id,
-      currentUserTypeId: adminType.id,
       id: user.id,
       name: 'John Doe Doe',
       email: 'johndoedoe@email.com',
@@ -104,7 +102,7 @@ describe('UpdateUser', () => {
     expect(updatedUser?.email).toBe('johndoedoe@email.com');
     expect(updatedUser?.password).toBe('9987654321');
     expect(updatedUser?.status).toBe(false);
-    expect(updatedUser?.type_id.id).toBe(adminType.id);
+    expect(updatedUser?.type_id).toBe(adminType.id);
   });
 
   it('should be able to update everything but the type on his own profile, if his type is not root or admin', async () => {
@@ -128,7 +126,6 @@ describe('UpdateUser', () => {
 
     const updatedUser = await updateUserService.execute({
       currentUserId: user.id,
-      currentUserTypeId: type.id,
       id: user.id,
       name: 'John Doe Doe',
       email: 'johndoedoe@email.com',
@@ -169,7 +166,6 @@ describe('UpdateUser', () => {
     await expect(
       updateUserService.execute({
         currentUserId: fakeUser.id,
-        currentUserTypeId: type.id,
         id: user.id,
         name: 'John Doe Doe',
         email: 'johndoedoe@email.com',
@@ -197,7 +193,6 @@ describe('UpdateUser', () => {
     await expect(
       updateUserService.execute({
         currentUserId: root.id,
-        currentUserTypeId: rootType.id,
         id: 'invalid-user-id',
         name: 'John Doe Doe',
         email: 'johndoedoe@email.com',
@@ -217,7 +212,6 @@ describe('UpdateUser', () => {
     await expect(
       updateUserService.execute({
         currentUserId: 'invalid-user-id',
-        currentUserTypeId: type.id,
         id: 'invalid-user-id',
         name: 'John Doe Doe',
         email: 'johndoedoe@email.com',
@@ -245,7 +239,6 @@ describe('UpdateUser', () => {
     await expect(
       updateUserService.execute({
         currentUserId: user.id,
-        currentUserTypeId: type.id,
         id: user.id,
         name: 'John Doe Doe',
         email: 'johndoedoe@email.com',
