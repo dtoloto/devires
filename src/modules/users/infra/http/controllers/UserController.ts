@@ -5,6 +5,7 @@ import { classToClass } from 'class-transformer';
 import CreateUserService from '@modules/users/services/CreateUserService';
 import UpdateUserService from '@modules/users/services/UpdateUserService';
 import DeleteUserService from '@modules/users/services/DeleteUserService';
+import IndexUserService from '@modules/users/services/IndexUserService';
 
 export default class UserController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -54,5 +55,15 @@ export default class UserController {
     const user = await deleteUser.execute({ id, rootId });
 
     return res.json({ user: classToClass(user) });
+  }
+
+  public async index(req: Request, res: Response): Promise<Response> {
+    const indexUser = container.resolve(IndexUserService);
+
+    const { id } = req.user;
+
+    const users = await indexUser.execute({ id });
+
+    return res.json({ users: classToClass(users) });
   }
 }
