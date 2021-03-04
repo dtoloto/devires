@@ -37,4 +37,6 @@ userRouter.put(
   userController.update,
 );
 
+userRouter.delete('/:id', userController.delete);
+
 export default userRouter;

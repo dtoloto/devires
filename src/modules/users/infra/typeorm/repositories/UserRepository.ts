@@ -40,7 +40,7 @@ class UserRespository implements IUserRepository {
   }
 
   public async delete(id: string): Promise<DeleteResult> {
-    const user = this.ormRepository.delete({ id });
+    const user = await this.ormRepository.delete(id);
     return user;
   }
 }

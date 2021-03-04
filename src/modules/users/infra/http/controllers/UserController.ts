@@ -4,6 +4,7 @@ import { classToClass } from 'class-transformer';
 
 import CreateUserService from '@modules/users/services/CreateUserService';
 import UpdateUserService from '@modules/users/services/UpdateUserService';
+import DeleteUserService from '@modules/users/services/DeleteUserService';
 
 export default class UserController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -40,6 +41,17 @@ export default class UserController {
       status,
       type_id,
     });
+
+    return res.json({ user: classToClass(user) });
+  }
+
+  public async delete(req: Request, res: Response): Promise<Response> {
+    const deleteUser = container.resolve(DeleteUserService);
+    const { id } = req.params;
+
+    const rootId = req.user.id;
+
+    const user = await deleteUser.execute({ id, rootId });
 
     return res.json({ user: classToClass(user) });
   }
