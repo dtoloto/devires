@@ -27,9 +27,8 @@ class User {
   @Column({ nullable: false })
   type_id: string;
 
-  @OneToOne(type => Type)
+  @OneToOne(() => Type, type => type.id)
   @JoinColumn({ name: 'type_id' })
-  @Column({ nullable: false })
   type: Type;
 
   @Column({ nullable: false, unique: true })

@@ -48,7 +48,7 @@ export default class CreateUser1614799045985 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'Type',
+            name: 'User',
             referencedTableName: 'types',
             referencedColumnNames: ['id'],
             columnNames: ['type_id'],
