@@ -43,7 +43,7 @@ devires
 Após clonar esse repositório, faça a instalação de todas as dependências através do comando:
 
 ```
-$ yarn install
+$ yarn
 ```
 
 Para a executar a aplicação, utilize o comando:
