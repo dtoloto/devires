@@ -1,18 +1,22 @@
 import FakeTypeRepository from '@modules/types/repositories/fakes/FakeTypeRepository';
 import AppError from '@shared/errors/AppError';
 import FakeUserRepository from '../repositories/fakes/FakeUserRepository';
+import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import CreateRootUserService from './CreateRootUserService';
 
 let fakeTypeRepository: FakeTypeRepository;
 let fakeUserRepository: FakeUserRepository;
+let fakeHashProvider: FakeHashProvider;
 let createRootUserService: CreateRootUserService;
 
 describe('CreateRootUser', () => {
   beforeEach(() => {
     fakeTypeRepository = new FakeTypeRepository();
     fakeUserRepository = new FakeUserRepository();
+    fakeHashProvider = new FakeHashProvider();
     createRootUserService = new CreateRootUserService(
       fakeUserRepository,
+      fakeHashProvider,
       fakeTypeRepository,
     );
   });

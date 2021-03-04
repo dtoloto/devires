@@ -1,6 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import ITypeRepository from '@modules/types/repositories/ITypeRepository';
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import User from '../infra/typeorm/entities/User';
 
 import IUserRepository from '../repositories/IUserRepository';
@@ -22,6 +23,9 @@ class CreateRootUserService {
     @inject('UserRepository')
     private userRepository: IUserRepository,
 
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
+
     @inject('TypeRepository')
     private typeRepository: ITypeRepository,
   ) {}
@@ -38,9 +42,11 @@ class CreateRootUserService {
       throw new AppError('Type does not exist');
     }
 
+    const hashedPassword = await this.hashProvider.generateHash(password);
+
     const user = await this.userRepository.create({
       name,
-      password,
+      password: hashedPassword,
       type_id: type?.id,
       email,
       status,

@@ -1,6 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import ITypeRepository from '@modules/types/repositories/ITypeRepository';
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import User from '../infra/typeorm/entities/User';
 
 import IUserRepository from '../repositories/IUserRepository';
@@ -20,6 +21,9 @@ class UpdateUserService {
   constructor(
     @inject('UserRepository')
     private userRepository: IUserRepository,
+
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
 
     @inject('TypeRepository')
     private typeRepository: ITypeRepository,
@@ -66,7 +70,7 @@ class UpdateUserService {
     }
 
     user.name = name;
-    user.password = password;
+    user.password = await this.hashProvider.generateHash(password);
     user.email = email;
     user.status = status;
     if (
