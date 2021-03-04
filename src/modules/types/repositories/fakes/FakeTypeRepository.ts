@@ -17,6 +17,11 @@ class TypesRespository implements ITypeRepository {
     return findType;
   }
 
+  public async findByName(name: string): Promise<Type | undefined> {
+    const findType = this.types.find(type => type.name === name);
+    return findType;
+  }
+
   public async create(typeData: ICreateTypeDTO): Promise<Type> {
     const type = new Type();
 

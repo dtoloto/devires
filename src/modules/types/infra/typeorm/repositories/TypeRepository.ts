@@ -17,6 +17,11 @@ class TypeRespository implements ITypeRepository {
     return type;
   }
 
+  public async findByName(name: string): Promise<Type | undefined> {
+    const type = await this.ormRepository.findOne({ where: { name } });
+    return type;
+  }
+
   public async findAll(): Promise<Type[]> {
     const types = await this.ormRepository.find();
     return types;
