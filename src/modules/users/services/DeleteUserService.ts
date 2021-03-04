@@ -32,11 +32,7 @@ class DeleteUserService {
       throw new AppError('Only root users can delete other users', 401);
     }
 
-    const deleted = await this.userRepository.delete(id);
-
-    if (!deleted) {
-      throw new AppError('Invalid user id');
-    }
+    await this.userRepository.delete(id);
 
     return 'User deleted';
   }

@@ -76,4 +76,26 @@ describe('DeleteUser', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should not be able to delete an user if current user does not exist', async () => {
+    const generalType = await fakeTypeRepository.create({
+      name: 'general',
+      description: 'Description Type General',
+    });
+
+    const user = await fakeUserRepository.create({
+      name: 'John Three',
+      email: 'johnthree@email.com',
+      password: '123456789',
+      status: true,
+      type_id: generalType.id,
+    });
+
+    await expect(
+      deleteUserService.execute({
+        rootId: 'invalid-user-id',
+        id: user.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
