@@ -71,8 +71,8 @@ describe('CreateUser', () => {
     const { user } = await createUserService.execute({
       currentUserId: admin.id,
       currentUserTypeId: adminType.id,
-      name: 'John Doe',
-      email: 'johndoe@email.com',
+      name: 'John Three',
+      email: 'johnthree@email.com',
       password: '123456789',
       status: true,
       type_id: type.id,
@@ -104,8 +104,27 @@ describe('CreateUser', () => {
       createUserService.execute({
         currentUserId: general.id,
         currentUserTypeId: generalType.id,
-        name: 'John Doe',
-        email: 'johndoe@email.com',
+        name: 'John Three',
+        email: 'johnthree@email.com',
+        password: '123456789',
+        status: true,
+        type_id: type.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not be able to create a new user if current user does not exist', async () => {
+    const type = await fakeTypeRepository.create({
+      name: 'Type One',
+      description: 'Description Type One',
+    });
+
+    await expect(
+      createUserService.execute({
+        currentUserId: 'invalid id',
+        currentUserTypeId: 'invalid id',
+        name: 'John Three',
+        email: 'johnthree@email.com',
         password: '123456789',
         status: true,
         type_id: type.id,
@@ -131,8 +150,8 @@ describe('CreateUser', () => {
       createUserService.execute({
         currentUserId: root.id,
         currentUserTypeId: rootType.id,
-        name: 'John Doe',
-        email: 'johndoe@email.com',
+        name: 'John Three',
+        email: 'johnthree@email.com',
         password: '123456789',
         status: true,
         type_id: 'invalid type id',

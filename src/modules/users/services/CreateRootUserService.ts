@@ -17,7 +17,7 @@ interface IResponse {
 }
 
 @injectable()
-class CreateTypeService {
+class CreateRootUserService {
   constructor(
     @inject('UserRepository')
     private userRepository: IUserRepository,
@@ -49,4 +49,4 @@ class CreateTypeService {
   }
 }
 
-export default CreateTypeService;
+export default CreateRootUserService;

@@ -9,18 +9,15 @@ interface IRequest {
   currentUserId: string;
   currentUserTypeId: string;
   name: string;
+  id: string;
   password: string;
   type_id: string;
   email: string;
   status: boolean;
 }
 
-interface IResponse {
-  user: User;
-}
-
 @injectable()
-class CreateUserService {
+class UpdateUserService {
   constructor(
     @inject('UserRepository')
     private userRepository: IUserRepository,
@@ -32,12 +29,13 @@ class CreateUserService {
   public async execute({
     currentUserId,
     currentUserTypeId,
+    id,
     name,
     password,
     type_id,
     email,
     status,
-  }: IRequest): Promise<IResponse> {
+  }: IRequest): Promise<User> {
     const currentUser = await this.userRepository.findById(currentUserId);
 
     if (!currentUser) {
@@ -48,10 +46,17 @@ class CreateUserService {
       currentUserTypeId,
     );
 
+    const user = await this.userRepository.findById(id);
+
+    if (!user) {
+      throw new AppError('Invalid User Id');
+    }
+
     if (
       currentUserType &&
       currentUserType.name !== 'root' &&
-      currentUserType.name !== 'admin'
+      currentUserType.name !== 'admin' &&
+      currentUserId !== user.id
     ) {
       throw new AppError('Current user is not root/admin', 401);
     }
@@ -62,16 +67,19 @@ class CreateUserService {
       throw new AppError('Invalid type id');
     }
 
-    const user = await this.userRepository.create({
-      name,
-      password,
-      type_id,
-      email,
-      status,
-    });
+    user.name = name;
+    user.password = password;
+    user.email = email;
+    user.status = status;
+    if (
+      (currentUserType && currentUserType.name === 'root') ||
+      (currentUserType && currentUserType.name === 'admin')
+    ) {
+      user.type_id = typeExists;
+    }
 
-    return { user };
+    return this.userRepository.save(user);
   }
 }
 
-export default CreateUserService;
+export default UpdateUserService;
