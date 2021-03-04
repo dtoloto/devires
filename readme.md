@@ -49,7 +49,7 @@ $ yarn install
 Para a executar a aplicação, utilize o comando:
 
 ```
-  $ yarn dev:server
+$ yarn dev:server
 ```
 
 Com a aplicação rodando em `localhost:3333`, utilize os seguintes endpoints:
