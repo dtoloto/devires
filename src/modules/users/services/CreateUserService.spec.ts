@@ -1,5 +1,5 @@
-import FakeTypeRepository from '@modules/types/repositories/fakes/FakeTypeRepository';
 import AppError from '@shared/errors/AppError';
+import FakeTypeRepository from '@modules/types/repositories/fakes/FakeTypeRepository';
 import FakeUserRepository from '../repositories/fakes/FakeUserRepository';
 import CreateUserService from './CreateUserService';
 
