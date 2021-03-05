@@ -46,6 +46,9 @@ Após clonar esse repositório, faça a instalação de todas as dependências a
 $ yarn
 ```
 
+Utilize o arquivo `.ev.example` para criar o arquivo `.env`
+
+
 Para a executar a aplicação, utilize o comando:
 
 ```
