@@ -4,7 +4,7 @@ import { container } from 'tsyringe';
 import CreateTypeService from '@modules/types/services/CreateTypeService';
 import IndexTypeService from '@modules/types/services/IndexTypeService';
 
-export default class DoctorsController {
+export default class TypeController {
   public async create(req: Request, res: Response): Promise<Response> {
     const createService = container.resolve(CreateTypeService);
 
